@@ -1,137 +1,86 @@
-# Research Memo
+# 调研备忘
 
-## Objective
+## 这轮仓库扩充的现实判断
 
-Create a public repo that:
+如果目标是“明天早上能交付一个明显更完整的开源仓库”，最重要的不是空谈生态，而是把 **本地能核实的样本** 和 **现有路线图** 先整理成中文可读版本。
 
-1. curates valuable low-risk skills
-2. teaches people how to write good skills
-3. teaches people how to write good rules
+## 当前最靠谱的资料来源
 
-## Ecosystem reality
+### 1. 本地已安装 / 已缓存的 skill
 
-### OpenClaw
+这类来源的优点是：
 
-OpenClaw has a meaningful built-in skill ecosystem already.
+- 能直接读 `SKILL.md`
+- 能看到真实 description
+- 便于核对依赖、权限和约束
+- 最适合写中文导读
 
-Local inspection shows ready skills like:
+本轮重点就来自这些来源：
 
-- feishu-doc / drive / perm / wiki
-- github
-- gh-issues
-- healthcheck
-- node-connect
-- weather
-- video-watcher
-- self-improvement
-- skill-creator
+- `codex_config/vendor_imports/skills-curated-cache.json`
+- 本地 curated skill 目录
+- 本地 Lark / OpenClaw skill 目录
+- 工作区 `skills/` 与 system skills
 
-This means the strongest immediate source material is **OpenClaw’s bundled and extension skills**, not a huge public registry.
+### 2. 仓库既有路线图
 
-### ClawHub
+旧版 `docs/100-skills-plan.md` 已经给出了很多名称，这说明仓库之前已经有扩容方向。
 
-ClawHub presents itself as a skill registry with install/update/publish flows.
+问题不在于“有没有名字”，而在于：
 
-Observed public state at the time of drafting:
+- 缺中文解释
+- 缺来源拆分
+- 缺进度状态
+- 缺“已核对 / 待核对”的诚实分层
 
-- concept is promising
-- install flow is clear
-- public catalog appears sparse / early-stage
-- highlighted/popular sections appear mostly empty
+## 当前生态判断
 
-Implication:
+### OpenClaw 自带 / 本地样本仍然是最高价值来源
 
-- README should be honest
-- repo should not pretend the public ecosystem is already mature
-- curation should lean on quality examples and criteria, not volume claims
+就当前可见面来看，最值得抄的是：
 
-## Recommended categories
+- 飞书系列 skill
+- docs / file / media 系列 skill
+- GitHub / 部署 / 浏览器自动化 skill
+- skill-creator / self-improvement 这类 meta skill
 
-1. documentation / knowledge work
-2. developer workflow
-3. collaboration integrations
-4. diagnostics / troubleshooting
-5. lightweight utilities
+因为它们：
 
-These categories maximize usefulness while staying relatively low-risk.
+- 触发条件更清楚
+- 工作流写得更像“能执行的程序说明”
+- 更容易看出安全边界
 
-## Recommended feature candidates
+### 公共生态仍值得看，但不该盲信
 
-### Strong candidates
+公共 registry 很有意义，但这类仓库如果想长期有价值，就不能靠“我搜到很多名字”取胜。
 
-- `skill-creator`
-- `weather`
-- `github`
-- `healthcheck`
-- `node-connect`
-- `feishu-doc`
-- `feishu-drive`
-- `feishu-perm`
-- `feishu-wiki`
-- `video-watcher`
+更合理的姿势是：
 
-### Why these work
+- 先用本地样本建立标准
+- 再慢慢吸收外部来源
+- 对外部 skill 保持默认审查心态
 
-- they have clear triggers
-- they demonstrate workflow packaging
-- several are low-risk and read-heavy
-- the riskier ones generally include explicit process and boundaries
+## 这轮仓库改造的策略
 
-## Exclusion criteria
+### 优先做对的事
 
-Do not prominently recommend skills that are:
+- README 中文化
+- 主清单扩到 100 项中文导读
+- 给文档补中文版本
+- 把“已核对”和“待核对”分开
 
-- destructive by default
-- vague about permissions or side effects
-- built around secret extraction or surveillance
-- mostly shell injection wrapped as “automation”
-- stale and misleading
+### 暂时不追求一步到位的事
 
-## Quality rubric
+- 不强行给每个待核对 skill 补外链
+- 不对没核实的 skill 做过强推荐
+- 不为了凑数去收高风险或语义不明的条目
 
-Use five filters:
+## 目前结论
 
-1. utility
-2. clarity
-3. safety
-4. portability
-5. maintenance
+这个仓库现在最像一个“中文精选起步仓库”，而不是一个“完整 registry 镜像”。
 
-## Recommendation for tutorial coverage
+这反而是好事，因为它的价值会更稳定：
 
-The project should include two first-class guides:
-
-### Skill guide
-Must explain:
-
-- skill folder anatomy
-- concise descriptions
-- trigger quality
-- progressive disclosure via scripts/references/assets
-- OpenClaw gating metadata
-- safety boundaries
-- anti-patterns
-
-### Rules guide
-Must explain:
-
-- different rule types
-- where rules belong
-- how to write concrete rules
-- communication and group-chat rules
-- safety and approval rules
-- memory/documentation rules
-
-## Positioning recommendation
-
-This project should be framed as:
-
-- a curated starting point
-- a design-quality filter
-- a practical writing guide
-
-Not as:
-
-- “the complete registry”
-- “the biggest list”
-- blind endorsement of every public skill
+- 帮人快速找方向
+- 帮人看懂好 skill 长什么样
+- 帮人避开明显不该推荐的模式

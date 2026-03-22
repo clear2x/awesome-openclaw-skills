@@ -1,12 +1,10 @@
-# Skill Writing Guide
+# Skill 写作指南
 
-This guide is for writing **OpenClaw-compatible AgentSkills** that are useful, concise, and safe.
+这份文档面向 OpenClaw / AgentSkills 的作者，目标不是写“很会说话”的 prompt，而是写 **可触发、可维护、可审计** 的 skill。
 
-## 1. What a skill is
+## 1. Skill 是什么
 
-In OpenClaw, a skill is a folder containing a `SKILL.md` file and optional supporting resources.
-
-Typical layout:
+一个 skill 通常至少包含一个 `SKILL.md`，也可以带：
 
 ```text
 my-skill/
@@ -16,290 +14,197 @@ my-skill/
 └── assets/
 ```
 
-OpenClaw loads skills from:
+最小有效 skill 的关键不是字多，而是：
 
-1. bundled skills
-2. `~/.openclaw/skills`
-3. `<workspace>/skills`
+- 名称清楚
+- description 清楚
+- 工作流清楚
 
-Precedence is:
-
-`<workspace>/skills` → `~/.openclaw/skills` → bundled
-
----
-
-## 2. Minimal valid skill
+## 2. 一个最小可用的 `SKILL.md`
 
 ```markdown
 ---
-name: my-skill
-description: One-sentence explanation of when this skill should be used.
+name: example-skill
+description: 当用户要总结纯文本报告并提取行动项时使用此 skill。
+metadata: { "openclaw": { "requires": { "bins": ["sed"] } } }
 ---
 
-# My Skill
+# Example Skill
 
-Use this skill when the user asks for X.
+## 何时使用
 
-## Workflow
+- 用户要总结纯文本报告
+- 用户要提取行动项
 
-1. Do A.
-2. Check B.
-3. Return C.
+## 何时不要用
+
+- 二进制文件
+- 需要 OCR 的 PDF
+
+## 工作流
+
+1. 读取输入。
+2. 确认目标。
+3. 提取前三个行动项。
+4. 先给短摘要，再给 bullet。
 ```
 
-A good `description` is critical because OpenClaw uses the available skills list to decide what to load.
+## 3. 最重要的是 description
 
----
+OpenClaw 选择 skill 时，最先看的就是 `name` 和 `description`。
 
-## 3. What makes a skill good
+所以一个差 description 会直接让 skill 触发失败。
 
-A good skill does four things well:
-
-### a. Triggers clearly
-
-The description should say **when to use it** and often **when not to use it**.
-
-Bad:
+### 不好的写法
 
 ```yaml
 description: Helps with files.
 ```
 
-Better:
+问题：
+
+- 太泛
+- 没说清什么时候触发
+- 没说清文件类型
+
+### 更好的写法
 
 ```yaml
-description: Read, organize, and summarize PDF invoices. Use when the user asks about invoice extraction, totals, due dates, or invoice classification.
+description: 读取、整理并总结 PDF 发票。当用户提到发票抽取、金额汇总、到期日或发票分类时使用。
 ```
 
-### b. Stays concise
+## 4. 好 skill 的四个特征
 
-Do not waste context budget.
+### 触发清楚
 
-A skill should not explain basic concepts the model already knows. Put only the domain-specific or workflow-specific guidance in `SKILL.md`.
+一看 description 就知道：
 
-### c. Encodes workflow, not vibes
+- 什么时候该用
+- 什么时候别用
+- 它到底解决什么问题
 
-Bad skills say “be helpful and accurate.”
-Good skills say what to do:
+### 内容克制
 
-- inspect the file
-- validate assumptions
-- prefer a certain tool
-- ask for approval before destructive actions
-- use a deterministic script when correctness matters
+不要把模型本来就知道的常识全塞进去。
 
-### d. Handles safety explicitly
+`SKILL.md` 应该主要放：
 
-If a skill can trigger side effects, say so.
+- 领域限制
+- 特殊工作流
+- 容易踩的坑
+- 需要优先使用的工具
 
-Examples:
+### 写工作流，不写气氛组文案
 
-- ask before deleting
-- ask before sending external messages
-- do not run shell commands built from raw user input
-- prefer read-only checks first
+差 skill 常见写法：
 
----
+- 要有帮助
+- 要认真
+- 要准确
 
-## 4. Use progressive disclosure
+更好的写法：
 
-Keep `SKILL.md` focused.
+- 先看本地文件
+- 先验证依赖是否存在
+- 优先使用某个脚本
+- 有副作用时先确认
 
-Use:
+### 明写安全边界
 
-- `scripts/` for repeatable code
-- `references/` for longer docs, schemas, or examples
-- `assets/` for templates and output resources
+如果 skill 会写数据、发消息、改配置、删文件，就要写出来。
 
-The main file should teach the workflow and point to deeper materials only when needed.
+例如：
 
----
+- 删除前确认
+- 外发前确认
+- 先做只读检查
+- 不要把原始用户输入直接拼进 shell 命令
 
-## 5. Recommended shape of SKILL.md
+## 5. 什么时候该拆到 `scripts/`
 
-A practical template:
+当某段逻辑：
 
-```markdown
----
-name: example-skill
-description: Explain exactly when to use this skill.
-metadata: { "openclaw": { "requires": { "bins": ["curl"] } } }
----
+- 经常重复
+- 很脆弱
+- 正确性要求高
+- 用 shell one-liner 很容易翻车
 
-# Example Skill
+就别硬写在 prose 里了，直接上脚本。
 
-## When to use
+常见场景：
 
-- case A
-- case B
+- PDF 处理
+- 文档转换
+- 稳定解析
+- API 封装
 
-## When not to use
+## 6. 什么时候该拆到 `references/`
 
-- case C
-- case D
+当你有大段说明、schema、示例、表格时，不要全部塞进 `SKILL.md`。
 
-## Workflow
+可以把：
 
-1. Inspect inputs.
-2. Prefer tool X.
-3. If condition Y, read `references/deeper-guide.md`.
-4. Ask for confirmation before side effects.
-5. Return concise results first, detail second.
+- 长文档
+- API 参考
+- 错误码表
+- 详细示例
 
-## Notes
+放到 `references/`，只在需要时再读取。
 
-- limitation 1
-- limitation 2
-```
+## 7. OpenClaw 里几个容易忽略的点
 
----
+### frontmatter 要尽量简单
 
-## 6. OpenClaw-specific details that matter
+尤其是 `metadata`，最好保持简单、紧凑、清晰。
 
-### Single-line frontmatter discipline
+### 常见 gating 信息
 
-OpenClaw’s embedded parser expects frontmatter keys to remain simple.
-
-Important notes from the docs:
-
-- `SKILL.md` must include `name` and `description`
-- `metadata` should be a **single-line JSON object**
-- optional gating can live under `metadata.openclaw`
-
-### Common OpenClaw metadata fields
-
-Useful fields include:
+常见字段包括：
 
 - `requires.bins`
 - `requires.anyBins`
 - `requires.env`
 - `requires.config`
-- `primaryEnv`
 - `install`
 - `os`
-- `emoji`
 - `homepage`
 
-These matter because skill eligibility is filtered at load time.
+这些信息很重要，因为它们直接影响 skill 是否 eligible。
 
-### Session snapshot behavior
+### 会话对 skill 有快照行为
 
-OpenClaw snapshots eligible skills when a session starts.
+当 session 已经开始后，skill 文件或配置改了，不一定会立即生效。
 
-That means if you change skill files or skill config, you may need:
+很多情况下需要：
 
-- a new session
-- or a skill refresh / watcher-triggered reload
-- or a gateway restart, depending on what changed
+- 新开 session
+- 刷新 skills
+- 或重启 gateway
 
----
+## 8. 常见反模式
 
-## 7. When to use scripts instead of prose
+### 反模式 1：万能 prompt
 
-If a skill repeatedly needs the same fragile logic, use a script.
+什么都想做，最后什么都触发不准。
 
-Use `scripts/` when:
+### 反模式 2：把风险藏起来
 
-- correctness matters
-- the same code keeps being rewritten
-- the workflow is deterministic
-- shell one-liners would be too brittle
+明明会写、会删、会外发，却一句不提。
 
-Examples:
+### 反模式 3：把常识写成大段废话
 
-- PDF transforms
-- document conversions
-- structured parsing
-- stable API wrappers
+占上下文，不增加信息量。
 
----
+### 反模式 4：不写失败路径
 
-## 8. Good examples to imitate
+一个好 skill 不只说明顺利时怎么做，也要说明什么时候该停。
 
-From current OpenClaw-ready skills, good patterns include:
+## 9. 一个简单 checklist
 
-- `weather` — clear scope, simple commands, clear exclusions
-- `github` — practical command inventory, concrete use cases
-- `healthcheck` — explicit workflow, approvals, and safety guardrails
-- `feishu-doc` — one-tool mental model with concrete action examples
+提交 skill 前，问自己：
 
-These skills are useful because they tell the model **what to do in practice**.
-
----
-
-## 9. Anti-patterns
-
-Avoid these:
-
-### Overbroad skills
-
-If a skill claims to handle too many unrelated tasks, it becomes vague and low-value.
-
-### Prompt-bloat essays
-
-Huge SKILL.md files often waste context and perform worse than smaller focused ones.
-
-### Hidden side effects
-
-If a skill sends messages, mutates files, creates tickets, or runs commands, say so.
-
-### No boundaries
-
-A skill should say when **not** to trigger.
-
-### Re-explaining the obvious
-
-Do not fill the file with generic AI advice.
-
----
-
-## 10. A practical writing checklist
-
-Before publishing a skill, ask:
-
-- Is the name clear?
-- Is the description triggerable?
-- Is the scope narrow enough?
-- Are side effects explicit?
-- Are limitations honest?
-- Can I move details into `references/`?
-- Should a script replace part of this prose?
-- Would another agent understand when to use it in 10 seconds?
-
-If not, it is not ready.
-
----
-
-## 11. Testing workflow
-
-Useful commands:
-
-```bash
-openclaw skills list
-openclaw skills list --eligible
-openclaw skills check
-```
-
-And for manual testing, create a real prompt that should trigger the skill.
-
-Examples:
-
-- “Summarize this video transcript.”
-- “Check current weather in Hangzhou.”
-- “Review PR #42 CI status.”
-
-If the trigger sentence feels fuzzy, improve the description.
-
----
-
-## 12. Bottom line
-
-A good skill is not a giant prompt.
-
-It is a **compact operating manual** for a recurring job:
-
-- clear trigger
-- clear workflow
-- clear boundaries
-- clear safety model
-- minimal wasted tokens
+- description 是否足够具体？
+- 何时使用 / 不使用是否清楚？
+- 是否写清依赖、环境变量和副作用？
+- 是否把脆弱逻辑拆到了脚本？
+- 是否给后来者留下了可维护的结构？

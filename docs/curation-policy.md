@@ -1,141 +1,112 @@
-# Curation Policy
+# 收录标准与排除标准
 
-This repo is curated for **signal, safety, and real-world usefulness**.
+这个仓库优先追求三件事：
 
-## Inclusion criteria
+- **信息密度**：不是堆名字，而是提供值得参考的条目
+- **安全边界**：不为高风险自动化洗白
+- **真实可用**：最好能追溯到本地 skill、官方样本或清晰来源
 
-A skill should usually meet most of these:
+## 收录时优先看什么
 
-1. **Clear purpose**
-   - The trigger conditions are obvious.
-   - The workflow is understandable.
+一个 skill 更容易进入主清单，如果它大致满足这些条件：
 
-2. **Real utility**
-   - Solves a repeated task.
-   - Saves user or agent time.
-   - Teaches a capability worth reusing.
+### 1. 目的清楚
 
-3. **Reasonable safety profile**
-   - Does not hide risky side effects.
-   - Does not normalize unsafe automation.
-   - Does not require broad trust without disclosure.
+- 什么时候该触发，读者一看就知道
+- 它在解决一个真实存在、会重复出现的问题
 
-4. **Good writing quality**
-   - Concise, focused, and operational.
-   - Avoids prompt bloat.
-   - Includes boundaries and limitations.
+### 2. 工作流清楚
 
-5. **Maintainability**
-   - Not obviously abandoned or broken.
-   - Dependencies and setup are understandable.
+- 它不是只有一句“帮我做事”
+- 它说明了步骤、工具、限制或前置条件
 
----
+### 3. 风险可理解
 
-## Strongly preferred traits
+- 会不会写数据、发消息、改权限、改基础设施，要能说明白
+- 如果有副作用，是否要求确认、是否有回滚思路、是否先做只读检查
 
-We especially like skills that are:
+### 4. 文档质量够好
 
-- read-heavy rather than write-heavy
-- diagnostic rather than destructive
-- transparent about permissions and dependencies
-- specific in scope
-- easy to audit quickly
-- useful to many OpenClaw users
+- 描述简洁
+- 结构清晰
+- 没有明显的 prompt 膨胀
+- 有适用场景，也有不适用场景
 
----
+### 5. 维护性还行
 
-## Exclusion criteria
+- 依赖能看懂
+- 没有明显处于失效状态
+- 不是一眼看去就“写完再也没人碰过”的东西
 
-A skill is likely to be excluded if it is:
+## 我们特别偏爱哪些 skill
 
-### 1. Dangerous by design
+- 读多写少的 skill
+- 诊断型而不是破坏型的 skill
+- 权限与依赖讲得明白的 skill
+- 作用域窄、审计成本低的 skill
+- 能让后来人学会“怎么写 skill”的 skill
 
-Examples:
+## 什么类型会被谨慎对待
 
-- stealth surveillance
-- secret extraction
-- mass unsolicited outreach
-- destructive shell automation with weak controls
-- credential misuse or impersonation flows
+### 1. 天生高风险
 
-### 2. Too vague to trust
+例如：
 
-Examples:
+- 秘密提取
+- 隐蔽监控
+- 伪装成效率工具的越权操作
+- 大规模骚扰式外发
+- 没有保护栏的 destructive shell automation
 
-- “do anything with bash” skills
-- giant prompts with unclear boundaries
-- tools that claim safety without real mechanisms
+### 2. 太模糊，不值得信
 
-### 3. Low-signal prompt clutter
+例如：
 
-Examples:
+- “什么都能用 bash 做”的大 prompt
+- 边界不清的万能 skill
+- 安全承诺写得很大，但没有实际机制
 
-- mostly generic AI advice
-- no specific workflow
-- no concrete domain knowledge
-- no repeatable operational value
+### 3. 信息密度太低
 
-### 4. Misleading or stale
+例如：
 
-Examples:
+- 主要是泛泛而谈的 AI 建议
+- 没有领域知识
+- 没有复用价值
+- 没有具体工作流
 
-- broken setup instructions
-- unsupported tools presented as working
-- outdated dependency assumptions with no warning
+### 4. 误导或过时
 
----
+例如：
 
-## How we describe risky but educational skills
+- 安装步骤已经失效
+- 依赖根本不存在
+- 明明不支持却写成“已经可用”
 
-Some skills are interesting from a design perspective but not safe to recommend directly.
+## 对公共 registry 的态度
 
-When useful, we may:
+不管是 ClawHub 还是其他 registry，都只能算 **发现层**，不是信任背书。
 
-- mention them as anti-patterns
-- discuss their design problems
-- explain how to rewrite them safely
+也就是说：
 
-We do **not** have to list everything to be “complete.”
+- 在 registry 上能搜到 ≠ 值得推荐
+- 有下载量 ≠ 安全或高质量
+- 公开上传的第三方 skill 依然需要审查
 
----
+## 对“待核对”条目的处理方式
 
-## Quality rubric
+这个仓库允许把一些条目先放进观察池，但前提是：
 
-Each candidate can be scored informally across:
+- 明确标成 `待核对`
+- 解释里尽量保守
+- 不把它包装成已经确认可用的推荐项
 
-- **Utility** — does it solve a recurring problem?
-- **Clarity** — is the trigger and workflow obvious?
-- **Safety** — are permissions, side effects, and limits explicit?
-- **Portability** — can others realistically use or adapt it?
-- **Maintenance** — does it look current and supportable?
+## 一个简单判断题
 
-A skill with strong utility but weak safety usually does **not** make the list.
+如果某个 skill 的介绍无法回答下面这些问题，它通常还不够成熟：
 
----
-
-## How we treat ClawHub and public registries
-
-Public registries are useful discovery layers, not trust guarantees.
-
-That means:
-
-- registry presence is **not** endorsement
-- downloads are **not** proof of quality
-- a public upload is still third-party code/instructions
-
-Everything should be treated as reviewable and potentially untrusted.
-
----
-
-## Scope of this repo
-
-This repo is not only for ready-to-install skills.
-
-It may also include:
-
-- official bundled skills worth studying
-- public examples worth adapting
-- rule-writing guidance
-- design notes on what makes a skill good or bad
-
-That lets the repo stay useful even while the public ecosystem is still small.
+- 它到底解决什么问题？
+- 什么时候该用，什么时候不该用？
+- 它需要什么依赖或凭据？
+- 它最大的风险是什么？
+- 如果用户是第一次接触这个 skill，能不能读懂？

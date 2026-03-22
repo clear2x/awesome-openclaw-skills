@@ -1,6 +1,6 @@
-# Example Skill
+# 中文示例 Skill
 
-A tiny reference skill showing a clean, low-bloat structure.
+这是一个尽量干净、低膨胀的最小参考 skill。
 
 ```text
 example-skill/
@@ -10,28 +10,28 @@ example-skill/
 ```markdown
 ---
 name: example-skill
-description: Summarize a plain text report and extract the top three action items.
+description: 当用户要总结纯文本报告并提取前三个行动项时使用。
 metadata: { "openclaw": { "requires": { "bins": ["sed"] } } }
 ---
 
 # Example Skill
 
-## When to use
+## 何时使用
 
-- User asks to summarize a plain text report
-- User wants action items extracted
+- 用户要求总结纯文本报告
+- 用户要求抽取行动项
 
-## When not to use
+## 何时不要用
 
-- Binary files
-- PDFs that need OCR
-- Spreadsheets or slide decks
+- 二进制文件
+- 需要 OCR 的 PDF
+- 电子表格或幻灯片
 
-## Workflow
+## 工作流
 
-1. Read the file.
-2. Identify the main objective.
-3. Extract the top three action items.
-4. Return a short summary first, then bullets.
-5. If the file is not plain text, stop and say why.
+1. 读取文件。
+2. 找到主目标。
+3. 提取前三个行动项。
+4. 先返回短摘要，再返回 bullet。
+5. 如果文件不是纯文本，就停止并说明原因。
 ```

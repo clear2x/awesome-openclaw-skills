@@ -1,264 +1,166 @@
-# Rules Guide
+# Rules 写作指南
 
-This guide is about **rules**, not just skills.
+这个文档讲的不是 skill 本身，而是 **rules 应该怎么写**。
 
-In practice, “rules” show up across OpenClaw in several places:
+在 OpenClaw 语境里，rules 可以出现在很多地方：
 
-- workspace behavior files like `AGENTS.md`, `SOUL.md`, `TOOLS.md`, `USER.md`
-- skill instructions in `SKILL.md`
-- command and routing policy in `openclaw.json`
-- approval and safety expectations around tools and external actions
+- `AGENTS.md`
+- `SOUL.md`
+- `USER.md`
+- `TOOLS.md`
+- `SKILL.md`
+- 路由 / 权限 / 命令配置
 
-A rule is any instruction that narrows behavior in a durable, reusable way.
+一个好的 rule，不是“听起来正确”，而是“真的能约束行为”。
 
----
+## 1. 先区分规则类型
 
-## 1. Different kinds of rules
+### 行为规则
 
-### Behavioral rules
+控制语气、默认策略与协作方式。
 
-These shape tone, judgment, and defaults.
+例如：
 
-Examples:
+- 默认中文交流
+- 外部动作先确认
+- 群聊里不要抢着说话
 
-- be concise
-- prefer Chinese in this workspace
-- ask before external actions
-- use `trash` instead of `rm`
+### 操作规则
 
-### Operational rules
+控制工作流顺序。
 
-These shape workflow execution.
+例如：
 
-Examples:
+- 先读本地文档再回答
+- 先做只读检查再做修改
+- 命令失败时写入 learnings
 
-- read local docs first
-- run `openclaw status` yourself when possible
-- use the browser tool for websites instead of vague descriptions
-- prefer read-only inspection before mutation
+### 权限与路由规则
 
-### Routing and authorization rules
+控制谁能做什么、消息进哪里。
 
-These determine where messages go and who can do what.
+例如：
 
-Examples:
+- 哪个 bot 走哪个 agent
+- 哪些命令需要提权
+- 哪些工具只允许在特定上下文使用
 
-- multi-agent channel bindings
-- allowlists
-- command authorization
-- thread/session focus rules
+## 2. 一个好 rule 的标准
 
-### Tool-safety rules
+一个好 rule 往往具备这些特征：
 
-These constrain higher-risk capabilities.
+- **具体**：不是空话
+- **可执行**：模型知道该怎么做
+- **可验证**：事后能看出有没有做到
+- **值得占上下文**：不是显而易见的废话
 
-Examples:
+坏例子：
 
-- require approval for elevated exec
-- do not expose plugin tools unnecessarily
-- deny destructive commands by default
+- “要安全。”
 
----
+更好的版本：
 
-## 2. What a good rule looks like
+- “删除、覆盖、公开发送前先确认。”
 
-A good rule is:
+坏例子：
 
-- **specific**
-- **testable**
-- **narrow enough to be followed consistently**
-- **worth the context it costs**
+- “要有帮助。”
 
-Bad rule:
+更好的版本：
 
-- “Always do the best thing.”
+- “回答 OpenClaw 配置问题前，先查本地文档或已安装 skill。”
 
-Better rule:
+## 3. 规则该写在哪
 
-- “Before answering OpenClaw configuration questions, consult local docs first.”
+### 写到 workspace 文档里
 
-Bad rule:
+当它是稳定、长期、跨任务都成立的规则时：
 
-- “Be safe.”
+- `AGENTS.md`：流程、边界、习惯
+- `SOUL.md`：语气、人格、判断方式
+- `USER.md`：用户偏好与协作上下文
+- `TOOLS.md`：环境特性与工具坑点
 
-Better rule:
+### 写到 skill 里
 
-- “Ask before sending emails, public posts, or other actions that leave the machine.”
+当它只对某一类任务有效时。
 
----
+例如：
 
-## 3. Where to put rules
+- 文档编辑 skill 规定“覆盖写入前必须说明风险”
+- 安全审计 skill 规定“没有明确要求就不触发安全模式”
 
-### Put stable workspace rules in workspace files
+### 写到系统配置里
 
-Good homes:
+当它需要强约束、不能只靠语言遵守时。
 
-- `AGENTS.md` — workflow, guardrails, habits
-- `SOUL.md` — tone/persona
-- `USER.md` — user preferences and relationship context
-- `TOOLS.md` — environment-specific notes
+例如：
 
-### Put task-specific rules in skills
+- 命令授权
+- allow / deny list
+- 路由与多 agent 绑定
 
-If a rule only matters for a certain workflow, keep it in that skill.
+## 4. 写 rule 时最容易犯的错
 
-Example:
+### 太抽象
 
-- a document-editing skill can define how to handle tracked changes
-- a security audit skill can require confirmation before firewall changes
+“尊重隐私”“谨慎操作”这类话没有错，但往往不够用。
 
-### Put system policy in config
+要把它改成真正能执行的句子：
 
-Examples:
+- 不把私有工作区内容带进群聊
+- 不在未确认前发送消息到外部平台
+- 不运行 destructive command
 
-- command authorization
-- routing
-- tool allow/deny
-- channel settings
+### 太宽泛
 
----
+一个 rule 想管所有事，通常最后什么也管不好。
 
-## 4. Rules should be concrete enough to survive pressure
+比起：
 
-When the system is busy, a vague rule collapses first.
+- “所有任务都要非常认真地检查”
 
-Use rules like:
+更好的是：
 
-- “Number user choices so they can reply with a single digit.”
-- “Ask for approval before destructive commands.”
-- “In groups, only reply when directly mentioned or when adding clear value.”
-- “Use local docs first for OpenClaw behavior.”
+- “做公开发布、权限修改、基础设施变更前必须二次确认”
 
-These are much stronger than abstract preferences.
+### 跟系统能力冲突
 
----
+如果某件事应该用配置硬控，就不要只写成 prose。
 
-## 5. Rules for group chat behavior
+例如：
 
-A lot of agents fail here by being too eager.
+- 高风险命令需要 approval
+- 某些工具默认禁用
 
-Good group rules often include:
+## 5. 群聊规则尤其重要
 
-- reply when directly asked
-- stay quiet during normal human back-and-forth
-- do not dominate a thread
-- prefer a single thoughtful response over many fragments
-- use reactions where supported instead of noisy text replies
+很多 agent 最容易翻车的地方就是群聊。
 
-This is one of the highest-leverage rule categories because it directly affects whether the agent feels human or annoying.
+建议把这些写清楚：
 
----
+- 只有被点名或能明显增值时才发言
+- 不要连续刷三条碎消息
+- 能用 reaction 就别强行发一段话
+- 不要把自己当成用户本人发言
 
-## 6. Rules for risky actions
+## 6. 文档与记忆规则也很关键
 
-Write these explicitly.
+一个强 agent 通常会把这些写死：
 
-Good examples:
+- 需要长期记住的事，写进文件
+- 每日记忆放 `memory/YYYY-MM-DD.md`
+- 长期记忆放 `MEMORY.md`
+- 命令失败或被纠正时，写入 learnings
 
-- ask before public posting
-- ask before deleting or overwriting important files
-- do not change firewall/SSH settings without confirming access path
-- never claim a tool succeeded if the tool was unavailable
-- do not leak private workspace context into group chats
+## 7. 一个简单 checklist
 
----
+加 rule 之前，先问自己：
 
-## 7. Rules for documentation and memory
+- 这个 rule 到底防什么故障？
+- 它够不够具体？
+- 它应该写在 skill、workspace，还是 config？
+- 三个月后再看，这句话还成立吗？
+- 它会不会和已有 rule 打架？
 
-Strong agents write things down.
-
-Useful rules include:
-
-- if something should persist, write it to a file
-- use daily notes for raw logs
-- use `MEMORY.md` for curated long-term memory
-- document learnings when workflows fail
-
-These rules matter because model memory is not durable by itself.
-
----
-
-## 8. A good rule-writing checklist
-
-Before adding a rule, ask:
-
-- What failure mode does this prevent?
-- Is the rule concrete enough to test?
-- Is this rule global, workspace-specific, or task-specific?
-- Does it belong in config instead of prose?
-- Will this still make sense in three months?
-- Does it conflict with any existing rule?
-
-If the answer is unclear, the rule probably needs rewriting.
-
----
-
-## 9. Example transformations
-
-### Example 1
-
-Weak:
-
-- “Be careful with commands.”
-
-Strong:
-
-- “Do not run destructive commands without asking.”
-
-### Example 2
-
-Weak:
-
-- “Respect privacy.”
-
-Strong:
-
-- “Do not leak private workspace information into group chats.”
-
-### Example 3
-
-Weak:
-
-- “Use tools wisely.”
-
-Strong:
-
-- “When a first-class tool exists, use it instead of asking the user to run an equivalent command.”
-
----
-
-## 10. The best rules reduce ambiguity
-
-The point of a rule is not decoration.
-
-A good rule removes uncertainty in recurring situations.
-
-If a rule does not change decisions, prevent errors, or improve consistency, it probably does not belong.
-
----
-
-## 11. Rule templates
-
-### Safety rule template
-
-- Before doing **X**, confirm **Y**.
-- Never do **Z** without explicit approval.
-
-### Workflow rule template
-
-- For tasks involving **domain A**, consult **source B** first.
-- Prefer **method C** unless **condition D** applies.
-
-### Communication rule template
-
-- In **context A**, respond only when **condition B**.
-- Prefer **style C** over **style D**.
-
----
-
-## 12. Bottom line
-
-Good rules make agents calmer, safer, and more predictable.
-
-They are not slogans.
-They are operating constraints that improve behavior under real pressure.
+如果这些问题答不清，它大概率还需要重写。

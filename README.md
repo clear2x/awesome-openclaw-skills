@@ -1,114 +1,78 @@
 # Awesome OpenClaw Skills
 
-> Curated skills. Better skill-writing. Safer rules.
+> 一个尽量诚实、尽量中文、尽量低风险的 OpenClaw skill 精选仓库。
 
-A curated, safety-conscious collection of high-value **OpenClaw / AgentSkills** resources.
+这个项目做三件事：
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![OpenClaw](https://img.shields.io/badge/OpenClaw-AgentSkills--compatible-blue)](https://docs.openclaw.ai/tools/skills)
-[![ClawHub](https://img.shields.io/badge/Discover-ClawHub-orange)](https://clawhub.ai/)
+- 精选值得研究、安装或改写的 skill
+- 用中文说明 skill 为什么有价值、什么时候该用、什么时候别乱用
+- 沉淀 OpenClaw / AgentSkills 的写法、收录标准与风险边界
 
-This repo has three jobs:
+## 当前进度
 
-1. **Curate useful skills** worth studying, installing, or adapting.
-2. **Teach people how to write good skills** with real OpenClaw-compatible guidance.
-3. **Teach people how to write rules** for agent behavior, routing, and safe operation.
+- 主清单已扩到 **100 项 skill 中文导读**：见 `lists/awesome-skills.md`
+- 其中 **49 项已在本机 `SKILL.md` / 本地缓存中核对**
+- 另有 **51 项来自仓库既有路线图**，已补中文解释，后续继续做二次核对
+- 文档已补为中文优先：README、贡献说明、写作指南、rules 指南、收录标准、进度文档均已同步
 
-> This is **not** a dump of every skill we can find.  
-> The bar here is: **useful, understandable, maintainable, and low-risk**.
+## 这个仓库的立场
 
----
+这不是一个“把所有 skill 链接全扔进来”的大杂烩。
 
-## Why this exists
+我更在意的是：
 
-The OpenClaw ecosystem is powerful, but skill discovery is still early.
+- **是否真有用**
+- **是否讲得清楚**
+- **是否低风险或至少把风险说清楚**
+- **是否适合公开推荐**
 
-- OpenClaw supports **AgentSkills-compatible** skill folders.
-- Skills can come from bundled OpenClaw skills, workspace skills, managed local skills, plugins, and registries like **ClawHub**.
-- But not every public skill is worth installing.
-- Some are narrow, stale, badly scoped, or risky.
+所以这里会同时收录两类内容：
 
-This project tries to create a cleaner path:
+1. **优先推荐**：本地已核对、质量较高、边界相对清晰的 skill
+2. **观察候选**：已经纳入路线图、但还需要继续补来源或复核依赖的 skill
 
-- a curated shortlist instead of noise
-- a practical writing guide instead of vague theory
-- clear safety standards instead of “just trust random skill folders”
+如果某个 skill 名称本身是英文，仓库里仍然保留英文名；但解释、导读、判断尽量统一为中文。
 
----
+## 优先来源
 
-## What you'll find here
+本仓这一轮扩充主要使用本地资料，而不是盲目扫外网：
 
-- **Curated examples** of strong OpenClaw-compatible skills
-- **A practical guide** to writing better `SKILL.md` files
-- **A rules guide** for behavior, safety, routing, and workspace conventions
-- **A curation policy** that explains what belongs here — and what doesn't
+- 本地 OpenClaw / Lark skill 目录
+- 本地已安装的 workspace skills
+- 本地 system skills
+- 本地 curated cache：`codex_config/vendor_imports/skills-curated-cache.json`
+- 仓库既有的 `docs/100-skills-plan.md`
 
----
+这样做的好处是：
 
-## Quick links
+- 可追溯
+- 不容易误收危险 skill
+- 便于后续继续核对依赖、触发条件与维护状态
 
-- [Awesome Skills List](lists/awesome-skills.md)
-- [Skill Writing Guide](docs/skill-writing-guide.md)
-- [Rules Guide](docs/rules-guide.md)
-- [Curation Policy](docs/curation-policy.md)
-- [Research Memo](docs/research-memo.md)
+## 仓库结构
 
----
+- `lists/awesome-skills.md`：主清单，当前为 100 项中文导读
+- `docs/100-skills-plan.md`：进度、来源拆分、下一步计划
+- `docs/curation-policy.md`：收录 / 排除标准
+- `docs/skill-writing-guide.md`：怎么写一个好 skill
+- `docs/rules-guide.md`：怎么写具体、可执行的 rules
+- `docs/research-memo.md`：本仓当前判断与来源备忘
+- `examples/example-skill.md`：最小中文示例
+- `CONTRIBUTING.md`：贡献方式与提交流程
 
-## What counts as a good skill
+## 快速开始
 
-A skill is worth featuring here if it is:
+### 先看主清单
 
-- **Actually useful** in repeated real workflows
-- **Clear about when it should trigger**
-- **Concise** and not bloated
-- **Safe by default**
-- **OpenClaw-compatible** or easily adaptable
-- **Honest about dependencies, limits, and side effects**
+- `lists/awesome-skills.md`
 
-We especially like skills that:
+### 再看方法文档
 
-- save repeated effort
-- package domain knowledge cleanly
-- improve reliability for recurring tasks
-- teach correct tool usage without turning into prompt soup
+- `docs/curation-policy.md`
+- `docs/skill-writing-guide.md`
+- `docs/rules-guide.md`
 
----
-
-## Repo structure
-
-- `lists/awesome-skills.md` — curated skills and references
-- `docs/skill-writing-guide.md` — how to write good OpenClaw/AgentSkills skills
-- `docs/rules-guide.md` — how to write effective rules for behavior and routing
-- `docs/curation-policy.md` — inclusion, exclusion, and safety criteria
-- `docs/research-memo.md` — notes on ecosystem state and selection strategy
-- `examples/` — starter examples for skills and rules
-
----
-
-## Fast start
-
-### Browse OpenClaw docs
-
-- Skills: <https://docs.openclaw.ai/tools/skills>
-- Creating skills: <https://docs.openclaw.ai/tools/creating-skills>
-- Slash commands: <https://docs.openclaw.ai/tools/slash-commands>
-- ClawHub: <https://clawhub.ai/>
-
-### Install a skill locally
-
-```bash
-clawhub install <skill-slug>
-```
-
-Or create a workspace skill manually:
-
-```bash
-mkdir -p ~/.openclaw/workspace/skills/my-skill
-$EDITOR ~/.openclaw/workspace/skills/my-skill/SKILL.md
-```
-
-### Inspect available skills
+### OpenClaw 相关命令
 
 ```bash
 openclaw skills list
@@ -116,109 +80,44 @@ openclaw skills list --eligible
 openclaw skills check
 ```
 
----
+如果你的环境支持 ClawHub / skill 安装流，也可以参考：
 
-## Highlighted safe, high-value categories
+```bash
+clawhub install <skill-slug>
+```
 
-These are the categories this repo prioritizes.
+## 收录时我优先看什么
 
-### 1. Documentation and knowledge work
+我更倾向于优先收这些：
 
-Low-risk, high-utility skills that help read, summarize, organize, and transform information.
+- 文档与知识处理
+- GitHub / 开发工作流
+- 系统诊断与排障
+- 协作平台集成
+- 轻量多媒体与格式处理
 
-Examples:
-- video transcript readers
-- documentation summarizers
-- wiki/doc readers
-- note-system helpers
+我会谨慎对待这些：
 
-### 2. GitHub and developer workflow
+- 凭据读取或秘密操作边界不清的 skill
+- 大规模外发 / 骚扰式自动化
+- 对系统有破坏性却没有保护栏的 skill
+- 把“高风险自动化”包装成“高效率”的 skill
 
-Skills that help with issue triage, PR review support, CI inspection, and repo maintenance.
+## 接下来还会补什么
 
-Examples:
-- GitHub CLI workflow skills
-- issue triage skills
-- changelog/release note helpers
+- 为 51 个待核对条目补一手来源链接
+- 给更多 skill 补安装前置条件与风险标签
+- 增加“适合抄写的 skill 写法模板”
+- 给观察候选做更明确的推荐/不推荐判断
 
-### 3. Local diagnostics and ops
+## 贡献
 
-Skills that help inspect systems, run health checks, or guide troubleshooting without creating hidden automation risk.
+欢迎提 PR，但请把重点放在“质量、清晰度、安全边界”，不是只堆名字。
 
-Examples:
-- health checks
-- node connectivity diagnosis
-- environment inspection skills
+贡献前建议先看：
 
-### 4. Communication/workspace integrations
-
-Skills that make agents useful inside real work environments.
-
-Examples:
-- Feishu docs/drive/wiki helpers
-- Slack/Discord workflow helpers
-- calendar/note integrations with clear boundaries
-
-### 5. Retrieval and formatting helpers
-
-Skills that package repeatable reference workflows well.
-
-Examples:
-- weather lookup
-- transcript extraction
-- summary formatting
-- note normalization
-
----
-
-## Things we explicitly avoid
-
-We do **not** want to normalize risky skills just because they are flashy.
-
-Examples of likely exclusions:
-
-- stealthy surveillance skills
-- credential-harvesting or secret-exfiltration helpers
-- destructive automation with weak guardrails
-- mass-messaging / spammy outreach skills
-- “self-modifying” behavior with no review path
-- vague shell-heavy skills that execute arbitrary user strings unsafely
-- skills that imply safety claims they cannot enforce
-
-See [`docs/curation-policy.md`](docs/curation-policy.md).
-
----
-
-## Current reality of ClawHub
-
-As of this repo’s initial draft, ClawHub looks promising, but the public ecosystem appears **early and sparse**.
-
-That means this project does **not** pretend there are already hundreds of vetted gems. Instead, it does three things honestly:
-
-1. feature strong bundled and public-reference examples
-2. document what “good” looks like
-3. create a place where better public skill curation can grow
-
----
-
-## Contributing
-
-Pull requests are welcome, but this is a **curated** list.
-
-Please read:
-
-- [CONTRIBUTING.md](CONTRIBUTING.md)
-- [docs/curation-policy.md](docs/curation-policy.md)
-
-If you propose a skill, include:
-
-- what it does
-- why it matters
-- why it is low-risk
-- whether it is OpenClaw-ready or just conceptually relevant
-- what dependencies or credentials it needs
-
----
+- `CONTRIBUTING.md`
+- `docs/curation-policy.md`
 
 ## License
 

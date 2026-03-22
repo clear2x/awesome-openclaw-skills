@@ -1,49 +1,67 @@
-# Contributing
+# 贡献指南
 
-Thanks for contributing.
+感谢你想为这个仓库补内容。
 
-This repo is curated for **quality and safety**, not just volume.
+这个仓库不是“越多越好”的链接堆场，而是一个强调 **质量、中文解释、低风险边界** 的精选仓库。
 
-## What to propose
+## 欢迎提交什么
 
-Good proposals usually include one of these:
+优先欢迎这些类型的贡献：
 
-- a skill worth featuring
-- an improvement to the writing guides
-- a safer rewrite of an existing pattern
-- a better example of rules or skill structure
+- 值得收录的新 skill
+- 对已有中文解释的纠错或补充
+- 更好的 skill 写法示例
+- 更清晰的 rules 写法示例
+- 对高风险 skill 的风险重写与保护栏建议
 
-## For skill submissions, include
+## 提交 skill 时最好带上这些信息
 
-- name and source
-- what problem it solves
-- why it is useful repeatedly
-- why it is low-risk or how risk is controlled
-- dependencies / required binaries / credentials
-- whether it is OpenClaw-ready or needs adaptation
+- skill 名称
+- 来源链接或仓库路径
+- 它解决什么问题
+- 为什么它值得重复使用
+- 依赖什么二进制、环境变量、凭据或第三方服务
+- 它会不会写数据、发消息、改权限、动基础设施
+- 如果有风险，风险是怎么被约束住的
 
-## Please avoid
+## 这个仓库特别看重什么
 
-- giant unreviewed dumps of links
-- risky automation without guardrails
-- vague “AI prompt packs” with no workflow clarity
-- misleading claims about safety or compatibility
+一个条目更容易被合并，如果它具备这些特征：
 
-## Review standard
+- **用途清楚**：用户一看就知道什么时候该触发
+- **解释诚实**：不夸大能力，不隐瞒限制
+- **边界明确**：会写、会发、会删、会改权限的都说清楚
+- **能复用**：不是只为某个极窄场景定制
+- **可维护**：依赖和安装方式能讲明白
 
-A submission is more likely to land if it is:
+## 不太欢迎什么
 
-- clear
-- concrete
-- reproducible
-- honest about limitations
-- useful to more than one highly-specific edge case
+以下内容通常不会被优先合并：
 
-## Style
+- 一大串未经筛选的链接 dump
+- 只会喊口号、没有工作流的 prompt 包
+- 高风险自动化却没有保护栏的 skill
+- 明显过时、失效或误导性的说明
+- 把“读取秘密 / 代理发言 / 大规模外发”包装成效率工具的条目
 
-Prefer:
+## 写作风格建议
 
-- concise prose
-- strong headings
-- examples over filler
-- honest notes over marketing language
+请尽量：
+
+- 用中文说明清楚价值与风险
+- 保留 skill 原始英文名（如果它本来就是英文）
+- 少写营销话术，多写可执行信息
+- 优先给出适用场景和不适用场景
+- 对不确定的信息显式标记“待核对”
+
+## 推荐提交流程
+
+1. 先阅读 `docs/curation-policy.md`
+2. 再看 `docs/skill-writing-guide.md`
+3. 修改 `lists/awesome-skills.md` 或相关文档
+4. 如果条目数量或状态变化，顺手更新 `docs/100-skills-plan.md`
+5. 在 PR 描述里说明：新增了什么、来源是什么、风险如何控制
+
+## 一个很实用的原则
+
+如果你没法向陌生人清楚解释“这个 skill 为什么安全、什么时候该停手”，那它大概率还不适合被公开推荐。
