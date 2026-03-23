@@ -12,8 +12,10 @@
 
 - 主清单已扩到 **100 项 skill 中文导读**：见 `lists/awesome-skills.md`
 - 其中 **49 项已在本机 `SKILL.md` / 本地缓存中核对**
-- 另有 **51 项来自仓库既有路线图**，已补中文解释，后续继续做二次核对
+- 另有 **8 项已补到本地来源线索，暂标为 `部分核对`**
+- 剩余 **43 项仍为 `待核对`**，继续保留为观察候选
 - 文档已补为中文优先：README、贡献说明、写作指南、rules 指南、收录标准、进度文档均已同步
+- 本轮二次核对记录：`docs/pending-verification-notes.md`
 
 ## 这个仓库的立场
 
@@ -29,7 +31,7 @@
 所以这里会同时收录两类内容：
 
 1. **优先推荐**：本地已核对、质量较高、边界相对清晰的 skill
-2. **观察候选**：已经纳入路线图、但还需要继续补来源或复核依赖的 skill
+2. **观察候选**：已经纳入路线图、但还需要继续补来源或复核依赖的 skill（其中一部分已做到 `部分核对`）
 
 如果某个 skill 名称本身是英文，仓库里仍然保留英文名；但解释、导读、判断尽量统一为中文。
 
@@ -37,10 +39,11 @@
 
 本仓这一轮扩充主要使用本地资料，而不是盲目扫外网：
 
-- 本地 OpenClaw / Lark skill 目录
+- 本地 `@larksuite/openclaw-lark` 包缓存
 - 本地已安装的 workspace skills
 - 本地 system skills
-- 本地 curated cache：`codex_config/vendor_imports/skills-curated-cache.json`
+- 本地 vendor skill 仓库：`/home/node/.codex/vendor_imports/skills`
+- 本地 `.openclaw/` 运行态痕迹与 `.clawhub/lock.json`
 - 仓库既有的 `docs/100-skills-plan.md`
 
 这样做的好处是：
@@ -53,6 +56,7 @@
 
 - `lists/awesome-skills.md`：主清单，当前为 100 项中文导读
 - `docs/100-skills-plan.md`：进度、来源拆分、下一步计划
+- `docs/pending-verification-notes.md`：本轮二次核对的本地证据、依赖与风险备注
 - `docs/curation-policy.md`：收录 / 排除标准
 - `docs/skill-writing-guide.md`：怎么写一个好 skill
 - `docs/rules-guide.md`：怎么写具体、可执行的 rules
@@ -105,7 +109,8 @@ clawhub install <skill-slug>
 
 ## 接下来还会补什么
 
-- 为 51 个待核对条目补一手来源链接
+- 为剩余 43 个待核对条目补一手来源链接
+- 把 8 个 `部分核对` 条目继续往 `已核对` 推进
 - 给更多 skill 补安装前置条件与风险标签
 - 增加“适合抄写的 skill 写法模板”
 - 给观察候选做更明确的推荐/不推荐判断

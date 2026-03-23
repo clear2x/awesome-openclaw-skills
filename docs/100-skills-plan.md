@@ -7,7 +7,8 @@
 - 主清单：`lists/awesome-skills.md`
 - 当前条目数：**100**
 - 已核对条目：**49**
-- 待二次核对条目：**51**
+- 部分核对条目：**8**
+- 待二次核对条目：**43**
 
 ## 这一轮主要来源
 
@@ -40,7 +41,43 @@
 
 - 这一轮选入 **51** 个待核对候选
 - 已补中文导读
+- 其中 **8** 个已在本机补到来源线索，升级为 `部分核对`
+- 剩余 **43** 个继续保留为 `待核对`
 - 暂时不把它们包装成“全部已核对、可直接安装”的推荐项
+
+## 本轮新增本地二次核对来源
+
+### 1. 本地 `@larksuite/openclaw-lark` 包缓存
+
+来源：`/home/node/.npm/_npx/be1a8fd12ade5f98/node_modules/@larksuite/openclaw-lark`
+
+- 命中 `feishu-doc`、`feishu-drive`、`feishu-perm`、`feishu-wiki`
+- 能直接看到包版本、`npm` 安装入口、以及 `src/tools/oapi/drive` / `wiki` / `oauth` 等实现目录
+- 价值：比只看名字更接近真实安装与权限边界
+
+### 2. 本地 vendor skill 仓库
+
+来源：`/home/node/.codex/vendor_imports/skills`
+
+- 命中 `notion` 家族线索：`notion-knowledge-capture`、`notion-meeting-intelligence`、`notion-research-documentation`、`notion-spec-to-implementation`
+- 上游 remote 在本机指向 `https://github.com/openai/skills.git`
+- 价值：能直接补 `Notion MCP` 接入、OAuth 与页面写入风险说明
+
+### 3. 本地 OpenClaw 运行态
+
+来源：`/home/node/.openclaw/`
+
+- 命中 `canvas`、`gemini`
+- 当前拿到的是运行时 surface / agent 入口痕迹，还不足以当作独立 skill 已核对
+- 价值：至少能先把“有无本地实体”与“只是路线图名字”区分开
+
+### 4. 本地 ClawHub 安装锁
+
+来源：`/home/node/.openclaw/workspace/.clawhub/lock.json`
+
+- 命中 `clawhub`
+- 当前能确认本机存在安装锁与已装 skill 记录
+- 但还没核到发布、索引浏览或独立 `SKILL.md` 规范
 
 ## 为什么这样分层
 
@@ -48,15 +85,16 @@
 
 - 先把仓库做成 **能看、能用、能继续扩写** 的中文资料库
 - 对没核到一手资料的条目保持诚实，不乱吹、不乱推
-- 方便下一轮直接对 51 个待核对条目逐一补链接、依赖和风险判断
+- 比“全都待核对”更细一层，先把本地能证实的条目提到 `部分核对`
+- 方便下一轮直接对剩余 43 个待核对条目逐一补链接、依赖和风险判断
 
 ## 下一步建议
 
 ### 第一优先级
 
-- 给 51 个待核对条目补一手来源链接
+- 给剩余 43 个待核对条目补一手来源链接
 - 为它们补“依赖 / 凭据 / 是否会外发”的说明
-- 把其中一部分升级为 `已核对`
+- 把 8 个 `部分核对` 条目继续升级为 `已核对`
 
 ### 第二优先级
 
@@ -92,4 +130,4 @@
 - 一个中文 README
 - 一份 100 项 skill 中文导读清单
 - 一套中文的贡献、收录、写作与 rules 文档
-- 一个诚实的进度面板，知道哪些已经核过，哪些还要继续做
+- 一个诚实的进度面板，知道哪些已经核过、哪些只是 `部分核对`、哪些还要继续做
