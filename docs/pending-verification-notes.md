@@ -1,6 +1,6 @@
 # 条目核对记录：公开来源二次核对
 
-> 2026-03-23 这一轮在本机证据之外，补查了官方 ClawHub 公共技能页。只有当公开页能直接提供 skill 说明、依赖 / 凭据线索、安装方式或安全审计摘要时，才升级为 `已核对`；若只有公开占位页，则最多升级为 `部分核对`。
+> 2026-03-23 这一轮在本机证据之外，补查了官方 ClawHub 公共技能页。只有当公开页能直接提供 skill 说明、依赖 / 凭据线索、安装方式或安全审计摘要时，才升级为 `已核对`；若只有公开占位页，则最多升级为 `部分核对`。随后又补查了本机 Feishu 官方插件 README、npm 包元数据与独立 `SKILL.md`，再把 4 个飞书条目从 `部分核对` 升级为 `已核对`。之后根据用户明确给出的风险口径，再把 `clawhub`、`notion`、`canvas`、`gh-issues`、`gemini` 从 `部分核对` 升级为 `已核对`。
 
 ## 状态口径
 
@@ -12,7 +12,9 @@
 - 原先 **43** 个 `待核对` 条目已全部完成一轮公开来源核对。
 - 其中 **38** 个升级为 `已核对`。
 - 其中 **5** 个升级为 `部分核对`。
-- 当前主清单状态：**87 个 `已核对` + 13 个 `部分核对` + 0 个 `待核对`**。
+- 随后再把 **4** 个 Feishu 条目从 `部分核对` 升级为 `已核对`。
+- 再根据用户明确给出的风险口径，把 **5** 个条目从 `部分核对` 升级为 `已核对`。
+- 当前主清单状态：**96 个 `已核对` + 4 个 `部分核对` + 0 个 `待核对`**。
 
 ## 新增：由公开技能页升级为 `已核对`（38 项）
 
@@ -63,27 +65,30 @@
 - `tmux`：来源 `https://clawhub.ai/steipete/tmux`；依赖 tmux 与 `CLAWDBOT_TMUX_SOCKET_DIR`；风险：能直接抓 pane 输出，天然带有终端内容泄露面。
 - `xurl`：来源 `https://clawhub.ai/gaurangzalariya/xurl`；依赖主要是用户提供的 Twitter 内容；风险：公开页引用了未随包提供的参考文件，说明完整度一般，且定位偏内容获客而非通用 URL 探测。
 
-## 新增：由公开占位页升级为 `部分核对`（5 项）
+## 新增：由本机独立资料升级为 `已核对`（4 项）
+
+- `feishu-doc`：来源 `/app/extensions/feishu/skills/feishu-doc/SKILL.md`、本机 `@larksuite/openclaw-lark` README 与 `package.json`；已能确认文档读写、块级操作、表格、附件 / 图片上传、依赖 `drive:drive` 与 docx 相关 scope。
+- `feishu-drive`：来源 `/app/extensions/feishu/skills/feishu-drive/SKILL.md`、本机 `@larksuite/openclaw-lark` README 与 `package.json`；已能确认列目录、建文件夹、移动 / 删除文件、root folder 限制，以及 npm 安装入口。
+- `feishu-perm`：来源 `/app/extensions/feishu/skills/feishu-perm/SKILL.md`；已能确认协作者管理、权限等级、默认禁用、依赖 `drive:permission`，因此应列为敏感但已核对能力。
+- `feishu-wiki`：来源 `/app/extensions/feishu/skills/feishu-wiki/SKILL.md`、本机 `@larksuite/openclaw-lark` README 与 `package.json`；已能确认知识库空间 / 节点操作、与 `feishu_doc` 的依赖关系，以及安装链路。
+
+## 新增：由用户明确口径升级为 `已核对`（5 项）
+
+- `clawhub`：已有本机 `.clawhub/lock.json` 与官方文档链路；用户明确说明该条目按安全能力直接通过，因此升级为 `已核对`。
+- `notion`：已有 4 个独立 Notion skill 作为族群证据；用户明确说明该条目按安全能力直接通过，因此升级为 `已核对`。
+- `canvas`：已有本机运行态与官方 Canvas 文档；用户明确说明该条目按安全能力直接通过，因此升级为 `已核对`。
+- `gh-issues`：已有公开 registry 条目；用户明确说明该条目按安全能力直接通过，因此升级为 `已核对`。
+- `gemini`：已有本机运行态与官方 provider / CLI 文档线索；用户明确说明该条目按安全能力直接通过，因此升级为 `已核对`。
+
+## 仍为 `部分核对` 的 4 项
 
 - `coding-agent`：来源 `https://clawhub.ai/skills/coding-agent`；当前只见公开占位页和标题，仍缺独立说明、依赖与风险边界。
-- `gh-issues`：来源 `https://clawhub.ai/skills/gh-issues`；能确认它是公开 registry 条目，但页面仍停留在占位态。
 - `sherpa-onnx-tts`：来源 `https://clawhub.ai/skills/sherpa-onnx-tts`；当前只确认有公开条目，尚未拿到实际 `SKILL.md` 或安装说明。
 - `diffs`：来源 `https://clawhub.ai/skills/diffs`；当前只确认有公开 registry 占位页，不足以推断具体实现。
 - `wacli`：来源 `https://clawhub.ai/skills/wacli`；能确认名字已进入公开 registry，但细节尚缺。
 
-## 既有 `部分核对` 条目（沿用本机证据）
-
-- `clawhub`：来源 `/home/node/.openclaw/workspace/.clawhub/lock.json`；安装流存在；风险：供应链、发布规范和权限边界仍待补。
-- `feishu-doc`：来源本机 `@larksuite/openclaw-lark` 包缓存；依赖飞书 OAuth / scope；风险：文档读写、评论、媒体处理都应讲清楚可见性。
-- `feishu-drive`：来源本机 `src/tools/oapi/drive`；依赖飞书 OAuth 与包安装链路；风险：云盘文件权限和批量操作透明度。
-- `feishu-perm`：来源本机 `oauth` / `oauth-batch-auth` 代码；依赖 scope 开通与账号匹配；风险：权限提升和误授权。
-- `feishu-wiki`：来源本机 `src/tools/oapi/wiki`；依赖飞书 OAuth；风险：知识库结构修改会影响多人协作空间。
-- `notion`：来源本机 4 个 Notion 家族 skill；依赖 Notion MCP / 登录链路；风险：页面和数据库写入边界。
-- `canvas`：来源本机 `.openclaw/canvas/index.html`；依赖 OpenClaw runtime surface；风险：宿主环境前提尚不清楚。
-- `gemini`：来源本机 `.openclaw/agents/gemini/sessions/`；依赖外部模型配置；风险：数据出境与成本边界仍需补说明。
-
 ## 下一步最值得做什么
 
-- 优先继续补剩余 **13** 个 `部分核对` 条目的独立 `SKILL.md`、上游仓库与安装链路。
+- 优先继续补剩余 **4** 个 `部分核对` 条目的独立 `SKILL.md`、上游仓库与安装链路。
 - 对 `1password`、`discord`、`prose`、`tavily`、`acp-router`、`oracle`、`tmux` 等高风险条目，单独拉出“谨慎启用”说明。
-- 如果后续能拿到占位页对应的实际 skill 内容，再决定 `coding-agent`、`gh-issues`、`sherpa-onnx-tts`、`diffs`、`wacli` 是否继续升级。
+- 如果后续能拿到占位页对应的实际 skill 内容，再决定 `coding-agent`、`sherpa-onnx-tts`、`diffs`、`wacli` 是否继续升级。

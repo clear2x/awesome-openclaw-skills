@@ -6,8 +6,8 @@
 
 - 主清单：`lists/awesome-skills.md`
 - 当前条目数：**100**
-- 已核对条目：**87**
-- 部分核对条目：**13**
+- 已核对条目：**96**
+- 部分核对条目：**4**
 - 待二次核对条目：**0**
 
 ## 这一轮主要来源
@@ -53,8 +53,8 @@
 来源：`/home/node/.npm/_npx/be1a8fd12ade5f98/node_modules/@larksuite/openclaw-lark`
 
 - 命中 `feishu-doc`、`feishu-drive`、`feishu-perm`、`feishu-wiki`
-- 能直接看到包版本、`npm` 安装入口、以及 `src/tools/oapi/drive` / `wiki` / `oauth` 等实现目录
-- 价值：比只看名字更接近真实安装与权限边界
+- 不仅能看到 `src/tools/oapi/drive` / `wiki` / `oauth` 等实现目录，还能直接回到官方插件 README、npm 包元数据与独立 `SKILL.md`
+- 价值：已经足够补出安装链路、权限范围与典型工作流，因此这 4 项已从 `部分核对` 升级为 `已核对`
 
 ### 2. 本地 vendor skill 仓库
 
@@ -62,31 +62,33 @@
 
 - 命中 `notion` 家族线索：`notion-knowledge-capture`、`notion-meeting-intelligence`、`notion-research-documentation`、`notion-spec-to-implementation`
 - 上游 remote 在本机指向 `https://github.com/openai/skills.git`
-- 价值：能直接补 `Notion MCP` 接入、OAuth 与页面写入风险说明
+- 价值：能直接补 `Notion MCP` 接入、OAuth 与页面写入工作流；在用户明确认可其安全口径后，已作为可核对通过的族群入口纳入 `已核对`
 
-### 3. 本地 OpenClaw 运行态
+### 3. 本地 OpenClaw 运行态与官方文档
 
-来源：`/home/node/.openclaw/`
+来源：`/home/node/.openclaw/` 与 `/app/docs/`
 
-- 命中 `canvas`、`gemini`
-- 当前拿到的是运行时 surface / agent 入口痕迹，还不足以当作独立 skill 已核对
-- 价值：至少能先把“有无本地实体”与“只是路线图名字”区分开
+- 命中 `canvas`、`gemini`、`clawhub`
+- `canvas` 可直接回到官方文档中的 Gateway canvas host、node canvas 命令、工作区 `canvas/` 目录与安全说明；在用户明确认可安全口径后，已纳入 `已核对`
+- `clawhub` 可直接回到官方文档中的搜索、安装、更新、同步、发布、`.clawhub/lock.json` 与工作区加载机制；在用户明确认可安全口径后，已纳入 `已核对`
+- `gemini` 当前更接近模型 provider / CLI / runtime 入口，但在用户明确认可安全口径后，已纳入 `已核对`
 
 ### 4. 本地 ClawHub 安装锁
 
 来源：`/home/node/.openclaw/workspace/.clawhub/lock.json`
 
-- 命中 `clawhub`
-- 当前能确认本机存在安装锁与已装 skill 记录
-- 但还没核到发布、索引浏览或独立 `SKILL.md` 规范
+- 可确认本机存在安装锁与已装 skill 记录
+- 当前已装示例为 `bilibili-youtube-watcher` 与 `tiktok-video-analyzer`
+- 与官方 ClawHub 文档组合后，已足够支撑 `clawhub` 作为已核对条目
 
 ### 5. 官方 ClawHub 公共技能页
 
 来源：`https://clawhub.ai/<owner>/<slug>`
 
-- 本轮直接命中原先 **43** 个 `待核对` 条目中的全部条目
+- 上轮直接命中原先 **43** 个 `待核对` 条目中的全部条目
 - 其中 **38** 个页面能直接读到 skill 说明、依赖 / 凭据线索、安装方式或安全审计摘要，因此升级为 `已核对`
 - 另有 **5** 个只返回公开占位页或泛化描述，因此仅升级为 `部分核对`
+- 其中 `gh-issues` 在用户明确认可安全口径后，已从 `部分核对` 升级为 `已核对`
 - 价值：既保留“只信官方 / registry 页面”的保守标准，又能把原路线图名字从空占位推进到可解释状态
 
 ## 为什么这样分层
@@ -96,13 +98,13 @@
 - 先把仓库做成 **能看、能用、能继续扩写** 的中文资料库
 - 对没核到一手资料的条目保持诚实，不乱吹、不乱推
 - 比“全都待核对”更细一层：本地一手资料和官方公开技能页都可以作为保守的一手来源
-- 方便下一轮直接针对剩余 13 个 `部分核对` 条目补完整安装链路与上游仓库
+- 方便下一轮直接针对剩余 4 个 `部分核对` 条目补完整安装链路与上游仓库
 
 ## 下一步建议
 
 ### 第一优先级
 
-- 给剩余 13 个 `部分核对` 条目补独立 `SKILL.md`、上游仓库与安装链路
+- 给剩余 4 个 `部分核对` 条目补独立 `SKILL.md`、上游仓库与安装链路
 - 为高风险但已核对的条目单独写“谨慎启用”说明
 - 把最容易闭环的 `部分核对` 条目继续升级为 `已核对`
 

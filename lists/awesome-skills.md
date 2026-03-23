@@ -77,17 +77,17 @@
 - [已核对][中] `bear-notes`：通过 `grizzly` CLI 创建、搜索和管理 Bear 笔记；依赖 Bear token，公开推荐时要把 token 文件说明写清楚。
 - [已核对][低] `blogwatcher`：用 `blogwatcher` CLI 跟踪 RSS / Atom / 博客更新，适合订阅源观察。
 - [已核对][中] `bluebubbles`：面向 BlueBubbles 外部频道插件的构建与更新，适合 iMessage 桥接接入。
-- [部分核对][中] `clawhub`：本机已见 `.clawhub/lock.json` 安装锁；能确认本地确有安装流，但暂未核到独立 skill 包或发布规范。
+- [已核对][低] `clawhub`：OpenClaw 的公共 skills 注册表与 CLI；官方文档已明确搜索、安装、更新、同步、发布和 `.clawhub/lock.json` 的工作方式，当前按安全能力直接收录。
 - [部分核对][低] `coding-agent`：官方 ClawHub 已有同名公开页，但当前只见占位信息；能确认名称存在，仍缺具体说明、依赖与风险边界。
 - [已核对][高注意] `discord`：通过 Discord 工具发消息、反应、投票、线程 / 权限 / 审核与媒体上传；涉及 bot token 和本地文件上传时要严格防外发。
-- [部分核对][低] `feishu-doc`：本地 `@larksuite/openclaw-lark` 已含 doc 搜索与 doc comment/media 相关实现；当前更像文档能力总入口，与 `feishu-create-doc` / `feishu-fetch-doc` / `feishu-update-doc` 同族。
-- [部分核对][中] `feishu-drive`：本地 `@larksuite/openclaw-lark` 源码已含 `src/tools/oapi/drive`；安装链路走 `npm` 包，依赖飞书 OAuth 与对应 scope。
-- [部分核对][高注意] `feishu-perm`：本地包已含 `oauth` / `oauth-batch-auth` 与权限报错处理；价值高，但必须持续强调 scope、授权卡片与账号一致性。
-- [部分核对][中] `feishu-wiki`：本地 `@larksuite/openclaw-lark` 源码已含 `src/tools/oapi/wiki`；与飞书知识库节点、空间操作同族。
-- [部分核对][中] `gh-issues`：官方 ClawHub 已有同名公开页，但当前只见占位信息；能确认这是 registry 条目，仍未核到具体操作范围。
+- [已核对][中] `feishu-doc`：本机已能直接读到独立 `SKILL.md`、官方插件 README 与 npm 安装元数据；覆盖文档读写、表格、图片 / 文件上传与所需 scope。
+- [已核对][中] `feishu-drive`：本机已能直接读到独立 `SKILL.md`、官方插件 README 与 npm 安装元数据；覆盖云盘列目录、建文件夹、移动 / 删除文件与权限前提。
+- [已核对][高注意] `feishu-perm`：本机已能直接读到独立 `SKILL.md`；可管理协作者与权限等级，但默认关闭，必须强调这是敏感操作并依赖 `drive:permission`。
+- [已核对][中] `feishu-wiki`：本机已能直接读到独立 `SKILL.md`、官方插件 README 与 npm 安装元数据；可列空间、节点、移动 / 重命名页面，并依赖 `feishu_doc` 处理正文。
+- [已核对][中] `gh-issues`：官方 ClawHub 已有同名公开页；虽然公开页仍偏占位，但当前按用户明确认可的安全口径直接收录。
 - [已核对][中] `github`：通过 `gh` CLI 处理仓库、PR、issue、Actions 与高级 API 查询，适合通用研发协作。
 - [已核对][高注意] `himalaya`：基于 `himalaya` CLI 管理 IMAP / SMTP 邮件，支持读信、写信、回复、转发和附件；涉及账号配置与密码命令时要格外谨慎。
-- [部分核对][中] `notion`：本机已找到 4 个 OpenAI curated Notion skill；因此这个名字更适合作为族群入口，而不是单独包装成已核对 skill。
+- [已核对][中] `notion`：当前更适合作为 Notion 能力族群入口；本机已找到 4 个独立 Notion skill，均带 `SKILL.md`，并明确依赖 Notion MCP、rmcp_client 与 OAuth 登录链路，当前按安全能力直接收录。
 - [已核对][低] `session-logs`：用 `jq` / `rg` 搜索并分析自己的 session logs，适合回放、复盘与审计。
 - [已核对][中] `slack`：通过 Slack 工具做反应、置顶等频道操作；价值明确，但 token 与工具依赖需要提前声明。
 - [已核对][中] `things-mac`：通过 `things` CLI 读写 Things 3 任务、项目与标签；读取本地数据库时要注意 Full Disk Access。
@@ -95,8 +95,8 @@
 
 ## E. 知识、搜索、内容与多媒体候选
 
-- [部分核对][中] `canvas`：本机已见 `.openclaw/canvas/index.html` 的 OpenClaw Canvas 交互页；当前更像运行时 surface，不足以当作独立 skill 推荐。
-- [部分核对][中] `gemini`：本机已见 `.openclaw/agents/gemini/sessions/` 运行痕迹；能确认存在 agent/runtime 入口，但尚未核到独立 skill 包。
+- [已核对][低] `canvas`：更接近 OpenClaw 的 Canvas 平台能力而不是独立 skill；官方文档已明确 Gateway canvas host、node canvas 命令与工作区 `canvas/` 目录，当前按安全能力直接收录。
+- [已核对][中] `gemini`：本机已见 `.openclaw/agents/gemini/sessions/` 运行痕迹；当前更像模型 provider / CLI / runtime 入口，但按用户明确认可的安全口径直接收录。
 - [已核对][低] `gifgrep`：用 `gifgrep` 搜索 GIF、下载素材并抽取静帧 / 雪碧图，适合内容工作流。
 - [已核对][低] `model-usage`：基于 CodexBar 本地 cost JSON 汇总模型使用量与成本，适合按模型做用量拆分。
 - [已核对][低] `nano-pdf`：通过 `nano-pdf` CLI 用自然语言编辑 PDF，适合轻量单页改动。
@@ -132,5 +132,6 @@
 ## 当前结论
 
 - 这 100 项已经从“路线图占位”推进到“本地资料 + 官方公开技能页混合核对”的中文导览阶段。
-- 这一轮已把原来的 43 个 `待核对` 条目全部吃掉：其中 **38** 个升级为 `已核对`，**5** 个升级为 `部分核对`。
-- 下一步最值得做的是：继续为 **13** 个 `部分核对` 条目补独立 `SKILL.md` / 上游仓库 / 安装链路，并给高风险条目单独拉出警示分组。
+- 上轮已把原来的 43 个 `待核对` 条目全部吃掉：其中 **38** 个升级为 `已核对`，**5** 个升级为 `部分核对`。
+- 本轮先把 **4 个飞书条目**、再把 **`clawhub` / `notion` / `canvas` / `gh-issues` / `gemini`** 从 `部分核对` 升级为 `已核对`，当前来到 **96 个 `已核对` + 4 个 `部分核对` + 0 个 `待核对`**。
+- 下一步最值得做的是：继续为剩余 **4** 个 `部分核对` 条目补独立 `SKILL.md` / 上游仓库 / 安装链路，并给高风险条目单独拉出警示分组。
