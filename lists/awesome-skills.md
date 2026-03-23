@@ -4,8 +4,8 @@
 
 ## 状态说明
 
-- `已核对`：本机能找到 `SKILL.md`、本地缓存，或能直接回到本地一手资料
-- `部分核对`：已找到本地同名痕迹、同族上游或运行态证据，但还没核到独立 `SKILL.md` / 完整安装链路
+- `已核对`：本机能找到 `SKILL.md`、本地缓存，或能直接回到官方 registry / 官方仓库里的公开技能页与安装说明
+- `部分核对`：已找到本地同名痕迹、同族上游、运行态证据，或官方公开占位页，但还没核到完整 `SKILL.md` / 安装链路 / 关键依赖说明
 - `待核对`：已经纳入本仓路线图，先补中文导读，后续继续核对来源 / 依赖 / 维护状态
 - 风险标签是仓库视角的公开推荐风险，不代表 skill 本身绝对安全
 
@@ -69,68 +69,68 @@
 
 ## D. 协作平台与工作流候选
 
-> 本节按 `部分核对` / `待核对` 分层：前者已补到本地来源线索，后者仍以路线图占位为主。
+- 本节现在混合两类条目：能直接回到公开 ClawHub 技能页并补足说明的 `已核对`，以及只核到公开占位页 / 本地族群线索的 `部分核对`。
 
-- [待核对][高注意] `1password`：大概率用于密码库或凭据读取，公开推荐时必须把权限边界写清楚。
-- [待核对][中] `apple-notes`：适合把 Apple Notes 作为轻量笔记来源或写入目标。
-- [待核对][中] `apple-reminders`：适合读取、创建和管理 Apple Reminders 待办事项。
-- [待核对][低] `bear-notes`：面向 Bear 笔记的读取、整理或知识摘录流程。
-- [待核对][低] `blogwatcher`：更像博客更新跟踪器，适合定期观察订阅源或作者动态。
-- [待核对][中] `bluebubbles`：适合围绕 BlueBubbles / iMessage 桥接做消息整合。
+- [已核对][高注意] `1password`：围绕 1Password CLI（`op`）做安装、登录、多账户切换与 secret 读取 / 注入；很实用，但必须防止 tmux pane 捕获或日志泄露敏感信息。
+- [已核对][中] `apple-notes`：通过 `memo` CLI 在 macOS 创建、搜索、移动、导出 Apple Notes，适合轻量笔记整理。
+- [已核对][中] `apple-reminders`：通过 `remindctl` 在 macOS 管理提醒事项，支持列表、日期过滤与 JSON 输出。
+- [已核对][中] `bear-notes`：通过 `grizzly` CLI 创建、搜索和管理 Bear 笔记；依赖 Bear token，公开推荐时要把 token 文件说明写清楚。
+- [已核对][低] `blogwatcher`：用 `blogwatcher` CLI 跟踪 RSS / Atom / 博客更新，适合订阅源观察。
+- [已核对][中] `bluebubbles`：面向 BlueBubbles 外部频道插件的构建与更新，适合 iMessage 桥接接入。
 - [部分核对][中] `clawhub`：本机已见 `.clawhub/lock.json` 安装锁；能确认本地确有安装流，但暂未核到独立 skill 包或发布规范。
-- [待核对][低] `coding-agent`：更偏“编码代理工作流封装”，适合把常见研发步骤打包。
-- [待核对][中] `discord`：适合 Discord 频道、消息和社群协作自动化，但要严格控制外发行为。
+- [部分核对][低] `coding-agent`：官方 ClawHub 已有同名公开页，但当前只见占位信息；能确认名称存在，仍缺具体说明、依赖与风险边界。
+- [已核对][高注意] `discord`：通过 Discord 工具发消息、反应、投票、线程 / 权限 / 审核与媒体上传；涉及 bot token 和本地文件上传时要严格防外发。
 - [部分核对][低] `feishu-doc`：本地 `@larksuite/openclaw-lark` 已含 doc 搜索与 doc comment/media 相关实现；当前更像文档能力总入口，与 `feishu-create-doc` / `feishu-fetch-doc` / `feishu-update-doc` 同族。
 - [部分核对][中] `feishu-drive`：本地 `@larksuite/openclaw-lark` 源码已含 `src/tools/oapi/drive`；安装链路走 `npm` 包，依赖飞书 OAuth 与对应 scope。
 - [部分核对][高注意] `feishu-perm`：本地包已含 `oauth` / `oauth-batch-auth` 与权限报错处理；价值高，但必须持续强调 scope、授权卡片与账号一致性。
 - [部分核对][中] `feishu-wiki`：本地 `@larksuite/openclaw-lark` 源码已含 `src/tools/oapi/wiki`；与飞书知识库节点、空间操作同族。
-- [待核对][中] `gh-issues`：面向 GitHub issue 的查看、创建、分派与追踪。
-- [待核对][中] `github`：面向 GitHub 仓库、PR、issue、release 的通用研发协作入口。
-- [待核对][低] `himalaya`：从名字看更像邮件客户端集成，适合邮件读取或草稿辅助。
+- [部分核对][中] `gh-issues`：官方 ClawHub 已有同名公开页，但当前只见占位信息；能确认这是 registry 条目，仍未核到具体操作范围。
+- [已核对][中] `github`：通过 `gh` CLI 处理仓库、PR、issue、Actions 与高级 API 查询，适合通用研发协作。
+- [已核对][高注意] `himalaya`：基于 `himalaya` CLI 管理 IMAP / SMTP 邮件，支持读信、写信、回复、转发和附件；涉及账号配置与密码命令时要格外谨慎。
 - [部分核对][中] `notion`：本机已找到 4 个 OpenAI curated Notion skill；因此这个名字更适合作为族群入口，而不是单独包装成已核对 skill。
-- [待核对][低] `session-logs`：适合整理 agent 会话日志，便于回放、复盘或审计。
-- [待核对][中] `slack`：适合 Slack 频道与消息流自动化，但必须避免打扰式或代理式发言。
-- [待核对][中] `things-mac`：看名字更像 Things for Mac 的任务管理集成。
-- [待核对][中] `trello`：面向 Trello 卡片、列表与看板的管理与同步。
+- [已核对][低] `session-logs`：用 `jq` / `rg` 搜索并分析自己的 session logs，适合回放、复盘与审计。
+- [已核对][中] `slack`：通过 Slack 工具做反应、置顶等频道操作；价值明确，但 token 与工具依赖需要提前声明。
+- [已核对][中] `things-mac`：通过 `things` CLI 读写 Things 3 任务、项目与标签；读取本地数据库时要注意 Full Disk Access。
+- [已核对][中] `trello`：通过 Trello REST API 管理看板、列表与卡片；依赖 API key / token 与 `jq`。
 
 ## E. 知识、搜索、内容与多媒体候选
 
 - [部分核对][中] `canvas`：本机已见 `.openclaw/canvas/index.html` 的 OpenClaw Canvas 交互页；当前更像运行时 surface，不足以当作独立 skill 推荐。
 - [部分核对][中] `gemini`：本机已见 `.openclaw/agents/gemini/sessions/` 运行痕迹；能确认存在 agent/runtime 入口，但尚未核到独立 skill 包。
-- [待核对][低] `gifgrep`：更像 GIF 搜索、筛选或素材定位工具，适合内容工作流。
-- [待核对][低] `model-usage`：适合统计模型调用量、成本、配额或使用趋势。
-- [待核对][低] `nano-pdf`：名字提示它更像轻量 PDF 处理器，可能适合小型抽取或拆分任务。
-- [待核对][中] `obsidian`：围绕 Obsidian vault 的知识组织、链接和笔记整合。
-- [待核对][中] `openai-image-gen`：与图像生成相关，但应继续核对其与 `imagegen` 的差异与定位。
-- [待核对][低] `openai-whisper`：偏向 Whisper 本地/CLI 版语音转写能力。
-- [待核对][低] `openai-whisper-api`：偏向基于 API 的语音转写或音频理解流程。
-- [待核对][中] `prose`：更像面向写作润色、改写和风格调整的文字工具。
-- [待核对][中] `sag`：已在原路线图中出现，通常与语音合成或播报相关，需继续核对具体实现。
-- [待核对][低] `sherpa-onnx-tts`：更像本地 TTS 能力封装，适合离线语音生成场景。
-- [待核对][低] `sonoscli`：面向 Sonos 音响控制与播放状态查询。
-- [待核对][低] `spotify-player`：适合查询或控制 Spotify 播放器状态。
-- [待核对][低] `summarize`：通用摘要 skill，适合长文、页面或日志的快速浓缩。
-- [待核对][中] `tavily`：通常与搜索 API 集成有关，适合检索增强型工作流。
-- [待核对][低] `video-frames`：从视频中抽取关键帧，适合做内容回顾与视觉分析。
-- [待核对][低] `weather`：天气查询类轻量 skill，适合演示“范围小但触发清晰”的写法。
+- [已核对][低] `gifgrep`：用 `gifgrep` 搜索 GIF、下载素材并抽取静帧 / 雪碧图，适合内容工作流。
+- [已核对][低] `model-usage`：基于 CodexBar 本地 cost JSON 汇总模型使用量与成本，适合按模型做用量拆分。
+- [已核对][低] `nano-pdf`：通过 `nano-pdf` CLI 用自然语言编辑 PDF，适合轻量单页改动。
+- [已核对][中] `obsidian`：通过 `obsidian-cli` 操作 Obsidian vault；会读取用户的 Obsidian 配置和 vault 路径，需明确文件边界。
+- [已核对][中] `openai-image-gen`：通过 OpenAI Images API 批量生成图片并输出本地 gallery；依赖 API key，且 Base URL 覆盖要谨慎。
+- [已核对][低] `openai-whisper`：用本地 Whisper CLI 做语音转写，不依赖 API key。
+- [已核对][中] `openai-whisper-api`：通过 OpenAI Audio Transcriptions API 转写音频；依赖 `OPENAI_API_KEY`，且会把音频上传到外部服务。
+- [已核对][高注意] `prose`：OpenProse / VM 风格 skill pack，支持拉取并执行 `.prose` 程序；公开页已被 ClawHub 标成 suspicious，必须谨慎。
+- [已核对][中] `sag`：通过 ElevenLabs 做 TTS，走 `sag` CLI 的 `say` 风格体验；依赖 API key。
+- [部分核对][低] `sherpa-onnx-tts`：官方 ClawHub 已有同名公开页，但当前只见占位信息；能确认条目存在，仍缺实现与安装细节。
+- [已核对][中] `sonoscli`：通过 `sonos` CLI 控制 Sonos 音箱的发现、播放、分组与音量；可选接 Spotify 搜索。
+- [已核对][低] `spotify-player`：用 `spogo` 或 `spotify_player` 做终端内 Spotify 搜索与播放控制。
+- [已核对][中] `summarize`：通过 `summarize` CLI 总结 URL、PDF、图片、音频与 YouTube 内容；依赖外部模型 / 提取服务 key。
+- [已核对][高注意] `tavily`：基于 Tavily Search API 做搜索与摘要；公开页已被 ClawHub 标成 suspicious，且 API key 元数据声明不完整。
+- [已核对][低] `video-frames`：用 `ffmpeg` 从视频里抽帧或截短片段，适合视觉回顾。
+- [已核对][低] `weather`：通过 `curl` 调 `wttr.in` / `Open-Meteo` 查询天气，无需 API key，但会把位置查询发到外网。
 
-## F. 待核对：终端、设备、系统与工具候选
+## F. 终端、设备、系统与工具候选
 
-- [待核对][中] `acp-router`：更像多 agent / 多工具之间的路由与协议桥接能力，后续应补一手来源说明。
-- [待核对][低] `blucli`：从名字看像蓝牙设备管理或扫描的命令行工具封装。
-- [待核对][低] `camsnap`：倾向于摄像头抓拍或图像采集，需继续核对权限边界。
-- [待核对][低] `diffs`：更偏差异比较、文件比对或变更摘要。
-- [待核对][低] `eightctl`：看命名像内部控制台或运维 CLI 封装，需要后续补来源说明。
-- [待核对][低] `goplaces`：可能围绕地点搜索、路线或地理位置候选列表构建。
-- [待核对][中] `healthcheck`：系统健康检查与问题定位类 skill，通常价值高但需要保护栏。
-- [待核对][中] `openhue`：大概率面向智能灯或家庭设备集成。
-- [待核对][低] `oracle`：从命名看更像 Oracle 数据库相关操作入口，后续应核对是否适合公开推荐。
-- [待核对][低] `tmux`：适合多终端会话编排、面板管理和会话恢复。
-- [待核对][低] `wacli`：名字提示它是某个命令行客户端包装器，后续需补一手定义。
-- [待核对][低] `xurl`：适合对 URL 做请求、探测或内容抓取。
+- [已核对][高注意] `acp-router`：面向 ACP / ACPX / OpenClaw runtime 的请求路由与修复工作流；公开页已被 ClawHub 标成 suspicious，且运行时会触发 `npm install`、命令执行与网关重启。
+- [已核对][低] `blucli`：通过 BluOS CLI（`blu`）做设备发现、播放、分组与音量控制。
+- [已核对][中] `camsnap`：抓取 RTSP / ONVIF 摄像头帧图或短片段；价值明确，但本地配置可能保存摄像头凭据，`watch --action` 也会放大执行面。
+- [部分核对][低] `diffs`：官方 ClawHub 已有同名公开页，但当前只见占位信息；能确认条目存在，仍缺具体实现说明。
+- [已核对][中] `eightctl`：控制 Eight Sleep pod 的状态、温度、闹钟与排程；依赖账号凭据，公开说明里必须把凭据边界讲清楚。
+- [已核对][中] `goplaces`：通过 `goplaces` CLI 调 Google Places API（新接口）做搜索、详情、resolve 与 review 查询。
+- [已核对][高注意] `healthcheck`：本质是本地 JSON 的饮水 / 睡眠跟踪器，但公开页已被 ClawHub 标成 suspicious，且运行说明依赖内联 `node -e`，应谨慎使用。
+- [已核对][中] `openhue`：通过 OpenHue CLI 控制 Philips Hue 灯光与场景，偏家庭 / 办公环境自动化。
+- [已核对][高注意] `oracle`：通过 `@steipete/oracle` CLI 打包 prompt 与相关文件，交给第二模型做 review / 调试 / 交叉验证；运行时会 `npx` 下载代码并可能把文件发到外部服务。
+- [已核对][高注意] `tmux`：通过 `tmux` 发送按键、抓 pane 输出和等待文本，适合操控交互式 CLI；但也能读到终端里的敏感内容。
+- [部分核对][低] `wacli`：官方 ClawHub 已有同名公开页，但当前只见占位信息；能确认它是公开 registry 条目，但功能边界仍未展开。
+- [已核对][中] `xurl`：分析 Twitter 内容里的 WordPress / Shopify 客户痛点并产出选题 / 获客线索，偏内容运营而不是通用抓取工具。
 
 ## 当前结论
 
-- 这 100 项已经足够把仓库从“方向说明”推进到“可读的中文导览”阶段。
-- 这一轮已把原 51 个候选拆成 `8 个部分核对 + 43 个待核对`，信任边界比只写“待核对”更清楚。
-- 下一步最值得做的是：继续给剩余 43 个待核对条目补一手来源和依赖，再把其中一部分升级为 `部分核对` 或 `已核对`。
+- 这 100 项已经从“路线图占位”推进到“本地资料 + 官方公开技能页混合核对”的中文导览阶段。
+- 这一轮已把原来的 43 个 `待核对` 条目全部吃掉：其中 **38** 个升级为 `已核对`，**5** 个升级为 `部分核对`。
+- 下一步最值得做的是：继续为 **13** 个 `部分核对` 条目补独立 `SKILL.md` / 上游仓库 / 安装链路，并给高风险条目单独拉出警示分组。

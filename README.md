@@ -11,11 +11,11 @@
 ## 当前进度
 
 - 主清单已扩到 **100 项 skill 中文导读**：见 `lists/awesome-skills.md`
-- 其中 **49 项已在本机 `SKILL.md` / 本地缓存中核对**
-- 另有 **8 项已补到本地来源线索，暂标为 `部分核对`**
-- 剩余 **43 项仍为 `待核对`**，继续保留为观察候选
+- 其中 **87 项已核对**：既包含本机 `SKILL.md` / 本地缓存，也包含能直接回到官方公开技能页的一手资料
+- 另有 **13 项保留为 `部分核对`**：能确认名称、族群或公开 registry 条目存在，但还缺完整 `SKILL.md` / 安装链路 / 关键依赖说明
+- 原先 **43 项 `待核对`** 已在本轮全部完成一轮公开来源核对：其中 **38 项升级为 `已核对`**、**5 项升级为 `部分核对`**
 - 文档已补为中文优先：README、贡献说明、写作指南、rules 指南、收录标准、进度文档均已同步
-- 本轮二次核对记录：`docs/pending-verification-notes.md`
+- 本轮公开 / 本地混合核对记录：`docs/pending-verification-notes.md`
 
 ## 这个仓库的立场
 
@@ -30,33 +30,35 @@
 
 所以这里会同时收录两类内容：
 
-1. **优先推荐**：本地已核对、质量较高、边界相对清晰的 skill
+1. **优先推荐**：已核对、质量较高、边界相对清晰的 skill（既包括本地一手资料，也包括官方公开技能页可回溯的条目）
 2. **观察候选**：已经纳入路线图、但还需要继续补来源或复核依赖的 skill（其中一部分已做到 `部分核对`）
 
 如果某个 skill 名称本身是英文，仓库里仍然保留英文名；但解释、导读、判断尽量统一为中文。
 
 ## 优先来源
 
-本仓这一轮扩充主要使用本地资料，而不是盲目扫外网：
+本仓扩充仍然优先使用本地资料；当本地不足时，再补官方 registry / 官方仓库的一手页面：
 
 - 本地 `@larksuite/openclaw-lark` 包缓存
 - 本地已安装的 workspace skills
 - 本地 system skills
 - 本地 vendor skill 仓库：`/home/node/.codex/vendor_imports/skills`
 - 本地 `.openclaw/` 运行态痕迹与 `.clawhub/lock.json`
+- 官方 ClawHub 公共技能页：`https://clawhub.ai/<owner>/<slug>`
 - 仓库既有的 `docs/100-skills-plan.md`
 
 这样做的好处是：
 
 - 可追溯
 - 不容易误收危险 skill
+- 公开来源也尽量落在 registry / 官方页面，不靠低信任二手转述
 - 便于后续继续核对依赖、触发条件与维护状态
 
 ## 仓库结构
 
 - `lists/awesome-skills.md`：主清单，当前为 100 项中文导读
 - `docs/100-skills-plan.md`：进度、来源拆分、下一步计划
-- `docs/pending-verification-notes.md`：本轮二次核对的本地证据、依赖与风险备注
+- `docs/pending-verification-notes.md`：本轮公开 / 本地混合核对的来源、依赖与风险备注
 - `docs/curation-policy.md`：收录 / 排除标准
 - `docs/skill-writing-guide.md`：怎么写一个好 skill
 - `docs/rules-guide.md`：怎么写具体、可执行的 rules
@@ -109,11 +111,11 @@ clawhub install <skill-slug>
 
 ## 接下来还会补什么
 
-- 为剩余 43 个待核对条目补一手来源链接
-- 把 8 个 `部分核对` 条目继续往 `已核对` 推进
+- 为剩余 **13 个 `部分核对`** 条目继续补独立 `SKILL.md` / 上游仓库 / 安装链路
+- 给高风险但已核对的条目单独拉出“谨慎启用”分组
 - 给更多 skill 补安装前置条件与风险标签
 - 增加“适合抄写的 skill 写法模板”
-- 给观察候选做更明确的推荐/不推荐判断
+- 给观察候选做更明确的推荐 / 不推荐判断
 
 ## 贡献
 
